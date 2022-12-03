@@ -69,7 +69,7 @@ function viewEmpls() {
 
 function addDept() {
     inquirer.prompt([{
-        name: "newDept",
+        name: "name",
         message: "What is the name of the new department?",
         type: "input"
     }])
@@ -82,18 +82,18 @@ function addDept() {
 function addRole() {
     let questions = [
         {
-            name: "roleName",
+            name: "title",
             message: "What is the name of this new role?",
             type: "input"
         }, 
         {
-            name: "roleSalary",
+            name: "salary",
             message: "What is the salary of this new role?",
             type: "input"
         },
         {
-            name: "roleDept",
-            message: "What department is this role under?",
+            name: "department_id",
+            message: "What department id is this role under?",
             type: "input"
         }
     ]
