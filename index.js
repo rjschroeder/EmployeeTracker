@@ -59,7 +59,10 @@ function viewRoles() {
 }
 
 function viewEmpls() {
-
+    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role.id, manager.id FROM employee;")
+        .then(([rows]) => {
+            console.table(rows);
+        })
 }
 
 function addDept() {
