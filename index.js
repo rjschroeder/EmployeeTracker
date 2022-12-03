@@ -105,7 +105,33 @@ function addRole() {
 }
 
 function addEmpl() {
-
+    let questions = [
+        {
+            name: "first_name",
+            message: "What is the first name of this new employee?",
+            type: "input"
+        }, 
+        {
+            name: "last_name",
+            message: "What is the last name of this new employee?",
+            type: "input"
+        },
+        {
+            name: "role_id",
+            message: "What is the role id of this employee?",
+            type: "input"
+        },
+        {
+            name: "manager_id",
+            message: "What is the id of the manager for this employee?",
+            type: "input"
+        }
+    ]
+    inquirer.prompt(questions)
+    .then((response) => {
+        connection.promise().query("INSERT INTO employee SET ?", response)
+        .then(() => mainMenu())
+    })
 }
 
 function updateEmpl() {
