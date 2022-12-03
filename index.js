@@ -39,6 +39,34 @@ const questions = [
     }
 ];
 
-function mainMenu () {
+function viewDepts() {
+
+}
+
+function viewRoles() {
+
+}
+
+function viewEmpls() {
+
+}
+
+function addDept() {
+
+}
+
+function addRole() {
+
+}
+
+function addEmpl() {
+
+}
+
+function updateEmpl() {
+    
+}
+
+function mainMenu() {
     
 }
