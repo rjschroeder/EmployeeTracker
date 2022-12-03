@@ -152,7 +152,27 @@ function updateEmpl() {
                 choices: choices
             }])
             .then((response) => {
-                console.log("Response here: " + response.employeeSelection);
+                let employeeSelectionVar = response.employeeSelection
+                connection.promise().query("SELECT role.id, role.title, role.salary FROM role;")
+                .then(([rows]) => {
+                    let choices = [];
+                    rows.forEach(element => {
+                        choices.push({
+                            name: `${element.title}`,
+                            value: `${element.id}`
+                        });
+                    })
+                    inquirer.prompt([{
+                        name: "roleSelection",
+                        message: "Which role do you want to assign?",
+                        type: "list",
+                        choices: choices
+                    }])
+                    .then((response) => {
+                        connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [employeeSelectionVar, response.roleSelection])
+                    })
+                    .then(() => mainMenu())
+                })
             })
         })
 }
