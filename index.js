@@ -3,7 +3,7 @@ const connection = require("./config/connection");
 
 const questions = [
     {
-        name: "mainMenu",
+        name: "choice",
         message: "What would you like to access?",
         type: "list",
         choices: [
@@ -51,14 +51,14 @@ function viewDepts() {
 }
 
 function viewRoles() {
-    connection.promise().query("SELECT role.id, role.title, role.salary, department.id FROM role;")
+    connection.promise().query("SELECT role.id, role.title, role.salary FROM role;")
         .then(([rows]) => {
             console.table(rows);
         })
 }
 
 function viewEmpls() {
-    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role.id, manager.id FROM employee;")
+    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role_id, manager_id FROM employee;")
         .then(([rows]) => {
             console.table(rows);
         })
