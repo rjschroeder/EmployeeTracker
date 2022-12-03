@@ -138,9 +138,12 @@ function updateEmpl() {
     connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
         .then(([rows]) => {
             console.log(rows);
-            let choices =[]
+            let choices = [];
             rows.forEach(element => {
-                choices.push(`${element.first_name} ${element.last_name}`);
+                choices.push({
+                    name: `${element.first_name} ${element.last_name}`,
+                    value: `${element.id}`
+                });
             })
             inquirer.prompt([{
                 name: "employeeSelection",
@@ -149,7 +152,7 @@ function updateEmpl() {
                 choices: choices
             }])
             .then((response) => {
-                console.log("Response here: " + response);
+                console.log("Response here: " + response.employeeSelection);
             })
         })
 }
