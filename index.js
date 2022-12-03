@@ -69,5 +69,22 @@ function updateEmpl() {
 }
 
 function mainMenu() {
-    
+    inquirer(questions)
+        .then((response) => {
+            if(response.choice === "viewDepts") {
+
+            } else if (response.choice === "viewRoles") {
+
+            } else if (response.choice === "viewEmpls") {
+                
+            } else if (response.choice === "addDept") {
+                
+            } else if (response.choice === "addRole") {
+                
+            } else if (response.choice === "addEmpl") {
+                
+            } else if (response.choice === "updateEmpl") {
+                
+            }
+        })
 }
