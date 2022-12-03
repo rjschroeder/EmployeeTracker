@@ -81,7 +81,7 @@ function updateEmpl() {
 }
 
 function mainMenu() {
-    inquirer(questions)
+    inquirer.prompt(questions)
         .then((response) => {
             if(response.choice === "viewDepts") {
                 viewDepts();
@@ -102,3 +102,5 @@ function mainMenu() {
             }
         })
 }
+
+mainMenu();
