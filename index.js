@@ -76,19 +76,19 @@ function mainMenu() {
     inquirer(questions)
         .then((response) => {
             if(response.choice === "viewDepts") {
-
+                viewDepts();
             } else if (response.choice === "viewRoles") {
-
+                viewRoles();
             } else if (response.choice === "viewEmpls") {
-                
+                viewEmpls();
             } else if (response.choice === "addDept") {
-                
+                addDept();
             } else if (response.choice === "addRole") {
-                
+                addRole();
             } else if (response.choice === "addEmpl") {
-                
+                addEmpl();
             } else if (response.choice === "updateEmpl") {
-                
+                updateEmpl();
             } else if (response.choice === "finish") {
                 //finish
             }
