@@ -152,7 +152,7 @@ function updateEmpl() {
             }])
             .then((response) => {
                 let employeeSelectionVar = response.employeeSelection
-                connection.promise().query("SELECT role.id, role.title, role.salary FROM role;")
+                connection.promise().query("SELECT role.id, role.title FROM role;")
                 .then(([rows]) => {
                     let choices = [];
                     rows.forEach(element => {
