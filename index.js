@@ -80,7 +80,28 @@ function addDept() {
 }
 
 function addRole() {
-
+    let questions = [
+        {
+            name: "roleName",
+            message: "What is the name of this new role?",
+            type: "input"
+        }, 
+        {
+            name: "roleSalary",
+            message: "What is the salary of this new role?",
+            type: "input"
+        },
+        {
+            name: "roleDept",
+            message: "What department is this role under?",
+            type: "input"
+        }
+    ]
+    inquirer.prompt(questions)
+        .then((response) => {
+            connection.promise().query("INSERT INTO role SET ?", response)
+            .then(() => mainMenu())
+        })
 }
 
 function addEmpl() {
