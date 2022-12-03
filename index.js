@@ -1,5 +1,4 @@
 const inquirer = require("inquirer");
-const { default: Choices } = require("inquirer/lib/objects/choices");
 const connection = require("./config/connection");
 
 const questions = [

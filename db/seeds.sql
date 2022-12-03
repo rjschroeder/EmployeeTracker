@@ -5,7 +5,7 @@ VALUES  ("Sales"),
         ("Management"),
         ("Interns"),
         ("Service"),
-        ("Engineers")
+        ("Engineers");
 
 INSERT INTO role (title, salary, department_id)
 VALUES  ("Lead Salesperson", 450000, 1),
@@ -18,7 +18,7 @@ VALUES  ("Lead Salesperson", 450000, 1),
         ("Service Worker", 340000, 4),
         ("Lead Engineer", 900000, 5),
         ("Senior Engineer", 760000, 5),
-        ("Junior Engineer", 450000, 5)
+        ("Junior Engineer", 450000, 5);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES  ("John", "Ham", 4, NULL),
@@ -38,4 +38,4 @@ VALUES  ("John", "Ham", 4, NULL),
         ("Scarlett", "Johansson", 10, 13),
         ("Ryan", "Gosling", 11, 14),
         ("Will", "Smith", 11, 15),
-        ("Matt", "Damon", 11, 14)
+        ("Matt", "Damon", 11, 14);
