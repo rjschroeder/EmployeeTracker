@@ -135,7 +135,23 @@ function addEmpl() {
 }
 
 function updateEmpl() {
-
+    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
+        .then(([rows]) => {
+            console.log(rows);
+            let choices =[]
+            rows.forEach(element => {
+                choices.push(`${element.first_name} ${element.last_name}`);
+            })
+            inquirer.prompt([{
+                name: "employeeSelection",
+                message: "Which employee's role do you want to update?",
+                type: "list",
+                choices: choices
+            }])
+            .then((response) => {
+                console.log("Response here: " + response);
+            })
+        })
 }
 
 function mainMenu() {
@@ -156,7 +172,7 @@ function mainMenu() {
             } else if (response.choice === "updateEmpl") {
                 updateEmpl();
             } else if (response.choice === "finish") {
-                //finish
+                process.exit();
             }
         })
 }
