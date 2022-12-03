@@ -48,6 +48,7 @@ function viewDepts() {
         .then(([rows]) => {
             console.table(rows);
         })
+        .then(() => mainMenu())
 }
 
 function viewRoles() {
@@ -55,6 +56,7 @@ function viewRoles() {
         .then(([rows]) => {
             console.table(rows);
         })
+        .then(() => mainMenu())
 }
 
 function viewEmpls() {
@@ -62,6 +64,7 @@ function viewEmpls() {
         .then(([rows]) => {
             console.table(rows);
         })
+        .then(() => mainMenu())
 }
 
 function addDept() {
