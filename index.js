@@ -35,6 +35,10 @@ const questions = [
             {
                 value: "updateEmpl",
                 name: "Update an Employee Role"
+            },
+            {
+                value: "finish",
+                name: "Finish"
             }
         ]
     }
@@ -85,6 +89,8 @@ function mainMenu() {
                 
             } else if (response.choice === "updateEmpl") {
                 
+            } else if (response.choice === "finish") {
+                //finish
             }
         })
 }
