@@ -45,7 +45,10 @@ const questions = [
 ];
 
 function viewDepts() {
-
+    connection.promise().query("SELECT department.id, department.name FROM department;")
+        .then(([rows]) => {
+            console.table(rows);
+        })
 }
 
 function viewRoles() {
