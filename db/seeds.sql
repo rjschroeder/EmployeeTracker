@@ -1,3 +1,5 @@
+USE companyEmployees;
+
 INSERT INTO department (name)
 VALUES  ("Sales"),
         ("Management"),
