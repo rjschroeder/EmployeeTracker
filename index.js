@@ -137,7 +137,6 @@ function addEmpl() {
 function updateEmpl() {
     connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
         .then(([rows]) => {
-            console.log(rows);
             let choices = [];
             rows.forEach(element => {
                 choices.push({
