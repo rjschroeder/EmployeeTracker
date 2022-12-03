@@ -52,7 +52,10 @@ function viewDepts() {
 }
 
 function viewRoles() {
-
+    connection.promise().query("SELECT role.id, role.title, role.salary, department.id FROM role;")
+        .then(([rows]) => {
+            console.table(rows);
+        })
 }
 
 function viewEmpls() {
