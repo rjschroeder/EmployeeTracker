@@ -9,3 +9,5 @@ const db = mysql2.createConnection(
     },
     console.log("Connected to Database")
 );
+
+module.exports = db;
