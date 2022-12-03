@@ -68,7 +68,15 @@ function viewEmpls() {
 }
 
 function addDept() {
-
+    inquirer.prompt([{
+        name: "newDept",
+        message: "What is the name of the new department?",
+        type: "input"
+    }])
+        .then((response) => {
+            connection.promise().query("INSERT INTO department SET ?", response)
+            .then(() => mainMenu())
+        })
 }
 
 function addRole() {
