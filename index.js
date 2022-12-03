@@ -38,3 +38,7 @@ const questions = [
         ]
     }
 ];
+
+function mainMenu () {
+    
+}
