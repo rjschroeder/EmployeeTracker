@@ -168,7 +168,8 @@ function updateEmpl() {
                         choices: choices
                     }])
                     .then((response) => {
-                        connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [employeeSelectionVar, response.roleSelection])
+                        console.log("emplselvar:" + employeeSelectionVar + " role: " + response.roleSelection);
+                        connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [response.roleSelection, employeeSelectionVar])
                     })
                     .then(() => mainMenu())
                 })
