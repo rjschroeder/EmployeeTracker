@@ -44,7 +44,7 @@ const questions = [
 ];
 
 function viewDepts() {
-    connection.promise().query("SELECT department.id, department.name FROM department;")
+    connection.promise().query("SELECT department.id, department.name AS department FROM department;")
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
@@ -53,7 +53,7 @@ function viewDepts() {
 }
 
 function viewRoles() {
-    connection.promise().query("SELECT role.id, role.title, role.salary FROM role;")
+    connection.promise().query("SELECT role.id, role.title AS role, role.salary FROM role;")
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
@@ -62,7 +62,7 @@ function viewRoles() {
 }
 
 function viewEmpls() {
-    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role_id, manager_id FROM employee;")
+    connection.promise().query("SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS name, role.title as role, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;")
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
