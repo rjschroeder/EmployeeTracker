@@ -128,6 +128,7 @@ function addEmpl() {
                         choices.push({
                             name: `${element.title}`,
                             value: `${element.id}`
+                        });
                     });
                     inquirer.prompt([{
                         name: "role",
@@ -148,7 +149,7 @@ function addEmpl() {
                                     });
                                     choices.push({
                                         name: "No manager",
-                                        value: NULL
+                                        value: "NULL"
                                     });
                                     inquirer.prompt([{
                                         name: "manager",
@@ -169,7 +170,6 @@ function addEmpl() {
                                         .then(() => mainMenu())
                                 })
                         })
-                    })
                 })
         })
 }
