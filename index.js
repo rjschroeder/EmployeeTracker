@@ -130,6 +130,29 @@ function addEmpl() {
         */
     ]
     inquirer.prompt(questions)
+        .then((response) => {
+            let firstName = response.first_name;
+            let lastName = response.last_name;
+            connection.promise().query("SELECT role.id, role.title FROM role;")
+            .then(([rows]) => {
+                let choices = [];
+                rows.forEach(element => {
+                    choices.push({
+                        name: `${element.title}`,
+                        value: `${element.id}`
+                });
+                inquirer.prompt([{
+                    name: "role",
+                    message: "Which role do you want to assign?",
+                    type: "list",
+                    choices: choices
+                }])
+                .then((response) => {
+                    
+                })
+            })
+            })
+        })
     /*
     inquirer.prompt(questions)
     .then((response) => {
