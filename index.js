@@ -95,7 +95,7 @@ function addRole() {
     inquirer.prompt(questions)
         .then((response) => {
             let newTitle = response.title;
-            let newSalary = response.newSalary;
+            let newSalary = response.salary;
             connection.promise().query("SELECT department.id, department.name FROM department;")
             .then(([rows]) => {
                 let choices = [];
