@@ -1,6 +1,8 @@
+//importing required modules
 const inquirer = require("inquirer");
 const connection = require("./config/connection");
 
+//question array for main menu
 const questions = [
     {
         name: "choice",
@@ -43,33 +45,43 @@ const questions = [
     }
 ];
 
+//query function to get departments
 function viewDepts() {
     connection.promise().query("SELECT department.id, department.name AS department FROM department;")
+        //take response and table it in console with console.table
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
         })
+        //after the table is displayed, show the action list again
         .then(() => mainMenu())
 }
 
+//query function to get roles
 function viewRoles() {
     connection.promise().query("SELECT role.id, role.title AS role, role.salary FROM role;")
+        //take response and table it in console with console.table
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
         })
+        //after the table is displayed, show the action list again
         .then(() => mainMenu())
 }
 
+//query function to get employees
 function viewEmpls() {
     connection.promise().query("SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS name, role.title as role, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;")
+        //take response and table it in console with console.table
         .then(([rows]) => {
             console.log(" ");
             console.table(rows);
         })
+        //after the table is displayed, show the action list again
         .then(() => mainMenu())
 }
 
+//query function that inserts a new department
 function addDept() {
     inquirer.prompt([{
         name: "name",
@@ -82,7 +94,9 @@ function addDept() {
         })
 }
 
+//query function that inserts a new role
 function addRole() {
+    //non-list question array for inquirer
     let questions = [
         {
             name: "title",
@@ -96,11 +110,17 @@ function addRole() {
         }
     ]
     inquirer.prompt(questions)
+        //the response will have keyed objects, store them to use when inserting new role
         .then((response) => {
             let newTitle = response.title;
             let newSalary = response.salary;
+            //get a list of just the department ids and names to give the user a choice between available departments
             connection.promise().query("SELECT department.id, department.name FROM department;")
             .then(([rows]) => {
+                //these next 7 lines I used multiple times throughout the code
+                //it creates an array of objects with a name value of the db query's name or title,
+                //and a value of the corresponding id. The user will see the name or title, the 
+                //program will use the id.
                 let choices = [];
                 rows.forEach(element => {
                     choices.push({
@@ -115,11 +135,13 @@ function addRole() {
                     choices: choices
                 }])
                     .then((response) => {
+                        //create a new object with all of the paramaters for a new role
                         let newRole = {
                             title: newTitle,
                             salary: newSalary,
                             department_id: response.dept
                         }
+                        //insert that object into role table
                         connection.promise().query("INSERT INTO role SET ?", newRole)
                         .then(() => mainMenu())
                     })
@@ -127,7 +149,9 @@ function addRole() {
         })
 }
 
+//multiple query function that inserts a new employee
 function addEmpl() {
+    //non-list question array for inquirer
     let questions = [
         {
             name: "first_name",
@@ -142,10 +166,13 @@ function addEmpl() {
     ]
     inquirer.prompt(questions)
         .then((response) => {
+            //the response will have keyed objects, store them to use when inserting new role
             let firstName = response.first_name;
             let lastName = response.last_name;
+            //get a list of just the role ids and titles to give the user a choice between available roles
             connection.promise().query("SELECT role.id, role.title FROM role;")
                 .then(([rows]) => {
+                    //same referenced code block for matching names/titles to id's
                     let choices = [];
                     rows.forEach(element => {
                         choices.push({
@@ -161,8 +188,10 @@ function addEmpl() {
                     }])
                         .then((response) => {
                             let role = response.role;
+                            //get a list of just the employee ids and first/last names to give the user a choice between available managers
                             connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
                                 .then(([rows]) => {
+                                    //same referenced code block for matching names/titles to id's
                                     let choices = [];
                                     rows.forEach(element => {
                                         choices.push({
@@ -170,6 +199,7 @@ function addEmpl() {
                                             value: `${element.id}`
                                         });
                                     });
+                                    //also push an extra choice on since there can be no manager for an employee
                                     choices.push({
                                         name: "No manager",
                                         value: null
@@ -181,12 +211,14 @@ function addEmpl() {
                                         choices: choices
                                     }])
                                         .then((response) => {
+                                            //create a new object with all of the paramaters for a new employee
                                             let newEmployee = {
                                                 first_name: firstName,
                                                 last_name: lastName,
                                                 role_id: role,
                                                 manager_id: response.manager
                                             }
+                                            //insert that object into employee table
                                             connection.promise().query("INSERT INTO employee SET ?", newEmployee)
                                                 .then(() => mainMenu())
                                         })
@@ -197,9 +229,12 @@ function addEmpl() {
         })
 }
 
+//multiple query function that updates an employee's role
 function updateEmpl() {
+    //get a list of just the employee ids and first/last names to give the user a choice of which employee to update
     connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
         .then(([rows]) => {
+            //same referenced code block for matching names/titles to id's
             let choices = [];
             rows.forEach(element => {
                 choices.push({
@@ -214,9 +249,12 @@ function updateEmpl() {
                 choices: choices
             }])
             .then((response) => {
+                //store the user's response here so it doesnt get lost later in the function
                 let employeeSelectionVar = response.employeeSelection
+                //get a list of just the role ids and titles to give the user a choice of which role to update to
                 connection.promise().query("SELECT role.id, role.title FROM role;")
                 .then(([rows]) => {
+                    //same referenced code block for matching names/titles to id's
                     let choices = [];
                     rows.forEach(element => {
                         choices.push({
@@ -231,7 +269,7 @@ function updateEmpl() {
                         choices: choices
                     }])
                     .then((response) => {
-                        console.log("emplselvar:" + employeeSelectionVar + " role: " + response.roleSelection);
+                        //update that object to our passed in data
                         connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [response.roleSelection, employeeSelectionVar])
                     })
                     .then(() => mainMenu())
@@ -240,6 +278,7 @@ function updateEmpl() {
         })
 }
 
+//main menu function that handles user choice
 function mainMenu() {
     inquirer.prompt(questions)
         .then((response) => {
