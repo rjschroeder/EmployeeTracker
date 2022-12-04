@@ -149,7 +149,7 @@ function addEmpl() {
                                     });
                                     choices.push({
                                         name: "No manager",
-                                        value: "NULL"
+                                        value: null
                                     });
                                     inquirer.prompt([{
                                         name: "manager",
