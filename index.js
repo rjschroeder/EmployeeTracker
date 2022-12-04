@@ -115,7 +115,8 @@ function addEmpl() {
             name: "last_name",
             message: "What is the last name of this new employee?",
             type: "input"
-        },
+        }
+        /*
         {
             name: "role_id",
             message: "What is the role id of this employee?",
@@ -126,12 +127,16 @@ function addEmpl() {
             message: "What is the id of the manager for this employee?",
             type: "input"
         }
+        */
     ]
+    inquirer.prompt(questions)
+    /*
     inquirer.prompt(questions)
     .then((response) => {
         connection.promise().query("INSERT INTO employee SET ?", response)
         .then(() => mainMenu())
     })
+    */
 }
 
 function updateEmpl() {
