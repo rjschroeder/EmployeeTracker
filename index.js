@@ -94,8 +94,33 @@ function addRole() {
     ]
     inquirer.prompt(questions)
         .then((response) => {
-            //connection.promise().query("INSERT INTO role SET ?", response)
-            //.then(() => mainMenu())
+            let newTitle = response.title;
+            let newSalary = response.newSalary;
+            connection.promise().query("SELECT department.id, department.name FROM department;")
+            .then(([rows]) => {
+                let choices = [];
+                rows.forEach(element => {
+                    choices.push({
+                        name: `${element.name}`,
+                        value: `${element.id}`
+                    });
+                });
+                inquirer.prompt([{
+                    name: "dept",
+                    message: "What department is this role under?",
+                    type: "list",
+                    choices: choices
+                }])
+                    .then((response) => {
+                        let newRole = {
+                            title: newTitle,
+                            salary: newSalary,
+                            department_id: response.dept
+                        }
+                        connection.promise().query("INSERT INTO role SET ?", newRole)
+                        .then(() => mainMenu())
+                    })
+            })
         })
 }
 
