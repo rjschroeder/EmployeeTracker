@@ -148,7 +148,36 @@ function addEmpl() {
                     choices: choices
                 }])
                 .then((response) => {
-                    
+                    let role = response.role;
+                    connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name FROM employee;")
+                        .then(([rows]) => {
+                            let choices = [];
+                            rows.forEach(element => {
+                                choices.push({
+                                    name: `${element.first_name} ${element.last_name}`,
+                                    value: `${element.id}`
+                            });
+                            choices.push({
+                                name: "No manager",
+                                value: NULL
+                            })
+                            inquirer.prompt([{
+                                name: "manager",
+                                message: "Who is this employee's manager?",
+                                type: "list",
+                                choices: choices
+                            }])
+                                .then((response) => {
+                                    let newEmployee = {
+                                        first_name: firstName,
+                                        last_name: lastName,
+                                        role_id: role,
+                                        manager_id: response.manager
+                                    }
+                                    connection.promise().query("INSERT INTO employee SET ?", newEmployee)
+                                        .then(() => mainMenu())
+                                })
+                        })
                 })
             })
             })
