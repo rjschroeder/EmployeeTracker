@@ -116,18 +116,6 @@ function addEmpl() {
             message: "What is the last name of this new employee?",
             type: "input"
         }
-        /*
-        {
-            name: "role_id",
-            message: "What is the role id of this employee?",
-            type: "input"
-        },
-        {
-            name: "manager_id",
-            message: "What is the id of the manager for this employee?",
-            type: "input"
-        }
-        */
     ]
     inquirer.prompt(questions)
         .then((response) => {
@@ -156,11 +144,12 @@ function addEmpl() {
                                 choices.push({
                                     name: `${element.first_name} ${element.last_name}`,
                                     value: `${element.id}`
+                                });
                             });
                             choices.push({
                                 name: "No manager",
                                 value: NULL
-                            })
+                                });
                             inquirer.prompt([{
                                 name: "manager",
                                 message: "Who is this employee's manager?",
@@ -182,13 +171,6 @@ function addEmpl() {
             })
             })
         })
-    /*
-    inquirer.prompt(questions)
-    .then((response) => {
-        connection.promise().query("INSERT INTO employee SET ?", response)
-        .then(() => mainMenu())
-    })
-    */
 }
 
 function updateEmpl() {
