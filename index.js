@@ -46,6 +46,7 @@ const questions = [
 function viewDepts() {
     connection.promise().query("SELECT department.id, department.name FROM department;")
         .then(([rows]) => {
+            console.log(" ");
             console.table(rows);
         })
         .then(() => mainMenu())
@@ -54,6 +55,7 @@ function viewDepts() {
 function viewRoles() {
     connection.promise().query("SELECT role.id, role.title, role.salary FROM role;")
         .then(([rows]) => {
+            console.log(" ");
             console.table(rows);
         })
         .then(() => mainMenu())
@@ -62,6 +64,7 @@ function viewRoles() {
 function viewEmpls() {
     connection.promise().query("SELECT employee.id, employee.first_name, employee.last_name, role_id, manager_id FROM employee;")
         .then(([rows]) => {
+            console.log(" ");
             console.table(rows);
         })
         .then(() => mainMenu())
